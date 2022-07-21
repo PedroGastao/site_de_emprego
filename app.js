@@ -4,6 +4,8 @@ const port = 8000
 
 const DataBase = require("./db/connection")
 
+const bodyParser = require("body-parser")
+
 //Banco de Dados
 DataBase.authenticate().then(()=>{
     console.log("DataBase conectado!")
@@ -11,10 +13,15 @@ DataBase.authenticate().then(()=>{
     console.log("Erro na conexão do Banco de dados: " ,err)
 })
 
+//body-parser
+app.use(bodyParser.urlencoded({extended: false}))
+
 //Rotas
 app.get("/", (req,res)=>{
     res.send("Funcionando")
 })
+
+app.use('/jobs',require('./routes/jobs'))
 
 app.listen(port,()=>{
     console.log(`SERVER NA PORTA: ${port}`)

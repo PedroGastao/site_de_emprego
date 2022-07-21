@@ -6,4 +6,7 @@ const sequelize = new Sequelize("site_vagas", "root", "Kuahku10#",{
     storage:"./db/app.idb"
 })
 
-module.exports = sequelize
+module.exports = {
+    sequelize: sequelize,
+    Sequelize: Sequelize
+}
