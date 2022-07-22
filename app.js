@@ -7,7 +7,7 @@ const DataBase = require("./db/connection")
 const bodyParser = require("body-parser")
 
 //Banco de Dados
-DataBase.authenticate().then(()=>{
+DataBase.sequelize.authenticate().then(()=>{
     console.log("DataBase conectado!")
 }).catch((err)=>{
     console.log("Erro na conexão do Banco de dados: " ,err)
