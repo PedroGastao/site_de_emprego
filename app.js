@@ -6,6 +6,9 @@ const DataBase = require("./db/connection")
 
 const bodyParser = require("body-parser")
 
+const handlebars = require("express-handlebars")
+const path = require('path')
+
 //Banco de Dados
 DataBase.sequelize.authenticate().then(()=>{
     console.log("DataBase conectado!")
@@ -15,6 +18,11 @@ DataBase.sequelize.authenticate().then(()=>{
 
 //body-parser
 app.use(bodyParser.urlencoded({extended: false}))
+
+//handlebars
+app.set('views',path.join(__dirname, 'views'))
+app.engine('handlebars',handlebars({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
 
 //Rotas
 app.get("/", (req,res)=>{
