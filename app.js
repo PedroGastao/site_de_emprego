@@ -11,6 +11,10 @@ const path = require('path')
 
 const job = require('./models/Jobs')
 
+const Sequelize = require('sequelize')
+const { query } = require("express")
+const op= Sequelize.Op
+
 
 //Banco de Dados
 DataBase.sequelize.authenticate().then(()=>{
@@ -31,12 +35,25 @@ app.set('view engine', 'handlebars')
 
 //Rotas
 app.get("/", (req,res)=>{
-    job.findAll({order:[
-        ['createdAt', 'DESC']
-    ]}).then(jobs =>{
-        res.render('index',{jobs})
-    })
-     
+
+    let search= req.query.job
+    let query= '%'+search+'%'
+
+    if(!search){
+        job.findAll({order:[
+            ['createdAt', 'DESC']
+        ]}).then(jobs =>{
+            res.render('index',{jobs})
+        }).catch(err=> console.log(err))
+    }else{
+        job.findAll({
+            where:{title:{[op.like]:search}},
+            order:[
+            ['createdAt', 'DESC']
+        ]}).then(jobs =>{
+            res.render('index',{jobs,search})
+        }).catch(err=> console.log(err))
+    }
 })
 
 app.use('/jobs',require('./routes/jobs'))
