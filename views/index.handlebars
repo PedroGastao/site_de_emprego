@@ -16,31 +16,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2 id="job-list-tittle">Vejas nossas vagas em destaque</h2>
-                    <ul id="job-list" class="list-group">
-                        <li class="list-group-item new-job">
-                            <img src="/img/company.svg" alt="company">
-                            <p>Empresa</p>
-                            <h3>Titulo da vaga</h3>
-                            <p>R$ 3000,00</p>
-                            <span class="new-job-label">Nova</span>
-                            <a class="btn btn-primary">Ver vaga</a>
-                        </li>
-                        <li class="list-group-item ">
-                            <img src="/img/company.svg" alt="company">
-                            <p>Empresa</p>
-                            <h3>Titulo da vaga</h3>
-                            <p>R$ 3000,00</p>
-                            <span class="new-job-label">Nova</span>
-                            <a class="btn btn-primary">Ver vaga</a>
-                        </li>
-                        <li class="list-group-item ">
-                            <img src="/img/company.svg" alt="company">
-                            <p>Empresa</p>
-                            <h3>Titulo da vaga</h3>
-                            <p>R$ 3000,00</p>
-                            <span class="new-job-label">Nova</span>
-                            <a class="btn btn-primary">Ver vaga</a>
-                        </li>
+                    <ul id="job-list" class="list-group" >
+                      {{#each jobs}}  
+                            <li class="list-group-item new-job {{#if dataValue.new}}new-job{{/if}}">
+                                <img src="/img/company.svg" alt="company">
+                                <p>{{dataValues.company}}</p>
+                                <h3>{{dataValues.title}}</h3>
+                                <p>{{dataValues.salary}}</p>
+                                <span class="new-job-label">Nova</span>
+                                <a class="btn btn-primary">Ver vaga</a>
+                            </li>
+                       {{/each}} 
                     </ul>
                 </div>
             </div>

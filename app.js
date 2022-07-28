@@ -9,6 +9,9 @@ const bodyParser = require("body-parser")
 const Hbars = require("express-handlebars")
 const path = require('path')
 
+const job = require('./models/Jobs')
+
+
 //Banco de Dados
 DataBase.sequelize.authenticate().then(()=>{
     console.log("DataBase conectado!")
@@ -28,7 +31,12 @@ app.set('view engine', 'handlebars')
 
 //Rotas
 app.get("/", (req,res)=>{
-    res.render('index')
+    job.findAll({order:[
+        ['createdAt', 'DESC']
+    ]}).then(jobs =>{
+        res.render('index',{jobs})
+    })
+     
 })
 
 app.use('/jobs',require('./routes/jobs'))

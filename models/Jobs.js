@@ -15,7 +15,7 @@ const job = database.sequelize.define("jobs",{
     new:{
         type:database.Sequelize.INTEGER
     },
-    emai:{
+    email:{
         type:database.Sequelize.STRING
     }
     
