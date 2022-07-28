@@ -6,7 +6,7 @@ const DataBase = require("./db/connection")
 
 const bodyParser = require("body-parser")
 
-const handlebars = require("express-handlebars")
+const Hbars = require("express-handlebars")
 const path = require('path')
 
 //Banco de Dados
@@ -15,18 +15,20 @@ DataBase.sequelize.authenticate().then(()=>{
 }).catch((err)=>{
     console.log("Erro na conexão do Banco de dados: " ,err)
 })
+//static folder
+app.use(express.static(path.join(__dirname, 'public')))
 
 //body-parser
 app.use(bodyParser.urlencoded({extended: false}))
 
 //handlebars
 app.set('views',path.join(__dirname, 'views'))
-app.engine('handlebars',handlebars({defaultLayout: 'main'}))
+app.engine('handlebars', Hbars.engine({defaultLayoutx: 'main'}))
 app.set('view engine', 'handlebars')
 
 //Rotas
 app.get("/", (req,res)=>{
-    res.send("Funcionando")
+    res.render('index')
 })
 
 app.use('/jobs',require('./routes/jobs'))
